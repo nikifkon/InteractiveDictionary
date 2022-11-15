@@ -1,0 +1,55 @@
+﻿<Window x:Class="InteractiveDictionary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InteractiveDictionary"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <DockPanel LastChildFill="True">
+        <Button DockPanel.Dock="Top" Background="AliceBlue" Content="Верхняя кнопка" />
+        <Grid DockPanel.Dock="Left" Background="Aquamarine" MinWidth="200px">
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition MaxHeight="30px"/>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0" />
+            <Button Grid.Row="1" Content="Search"/>
+            <Button Grid.Row="2" Content="Добавить слово" />
+            <Button Grid.Row="3" Content="Выбрать по тегу" />
+            <Button Grid.Row="4" Content="Сортировать" />
+            <Button Grid.Row="6" Content="Случайное упражнение" />
+        </Grid>
+        <Grid DockPanel.Dock="Right" MinWidth="300px">
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="{Binding ForeignForm}" />
+            <TextBlock Grid.Row="1" Text="{Binding Translated}"/>
+            <TextBlock Grid.Row="2" Text="{Binding Tags}"/>
+            <TextBlock Grid.Row="3" Text="{Binding Example}"/>
+            <TextBlock Grid.Row="4" Text="{Binding Comment}"/>
+            <TextBlock Grid.Row="5" Text="{Binding CreatedAt}"/>
+        </Grid>
+        <ListBox x:Name="Deck" SelectionChanged="deck_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock FontSize="16" Text="{Binding Path=ForeignForm}" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="16" Text="{Binding Path=Translated}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Window>
