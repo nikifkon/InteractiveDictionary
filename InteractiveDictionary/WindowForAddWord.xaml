@@ -1,0 +1,40 @@
+﻿<Window x:Class="InteractiveDictionary.WindowForAddWord"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InteractiveDictionary"
+        mc:Ignorable="d"
+        Title="WindowForAddWord" Height="350" Width="525">
+    <DockPanel LastChildFill="True">
+        <Button DockPanel.Dock="Top" Background="AliceBlue" Content="Верхняя кнопка" />
+        <Grid DockPanel.Dock="Left" Background="Aquamarine" MinWidth="200px">
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition MaxHeight="30px"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="ButtonAdd" Grid.Row="0" Content="Add" IsDefault="True" Click="AddWord"/>
+            <Button x:Name="ButtonCancel" Grid.Row="1" Content="Cancel" />
+        </Grid>
+        <Grid DockPanel.Dock="Right" MinWidth="300px">
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="30px" Height="2*"/>
+                <RowDefinition MaxHeight="30px" Height="2*"/>
+                <RowDefinition MaxHeight="30px" Height="2*"/>
+                <RowDefinition MaxHeight="30px" Height="2*"/>
+                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="TextBoxForForeignForm"  Grid.Row="0" Text="Enter ForeignForm" />
+            <TextBox x:Name="TextBoxForTranslated" Grid.Row="1" Text="Enter Translated"/>
+            <TextBox x:Name="TextBoxForTags" Grid.Row="2" Text="Enter Tags separated by SPACE"/>
+            <TextBox x:Name="TextBoxForExample" Grid.Row="3" Text="Enter Example"/>
+            <TextBox x:Name="TextBoxForComment" Grid.Row="4" Text="Enter Comment" Grid.RowSpan="2"/>
+        </Grid>
+    </DockPanel>
+</Window>
