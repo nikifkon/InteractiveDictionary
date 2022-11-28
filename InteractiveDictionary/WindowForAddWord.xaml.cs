@@ -13,9 +13,11 @@ namespace InteractiveDictionary
     public partial class WindowForAddWord : Window
     {
         public Word NewWord;
-        public WindowForAddWord()
+        public MainWindow MainWindow;
+        public WindowForAddWord(MainWindow mainWindow)
         {
             InitializeComponent();
+            MainWindow=mainWindow;
         }
 
         private void deck_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -24,7 +26,9 @@ namespace InteractiveDictionary
 
         private void AddWord(object sender, RoutedEventArgs e)
         {
-            var count = File.ReadAllLines(@"a.txt").Length;
+            var count = 0;
+            if (File.Exists(@"a.txt"))
+                count = File.ReadAllLines(@"a.txt").Length;
             var id = count + 1;
             var foreighForm = TextBoxForForeignForm.Text;
             var translated = TextBoxForTranslated.Text;
@@ -35,10 +39,12 @@ namespace InteractiveDictionary
             var example = TextBoxForExample.Text;
             var createAt = DateTime.Now;
             var comment = TextBoxForComment.Text;
-            NewWord = new Word(id,foreighForm, translated, tags, example, createAt, comment);
+            NewWord = new Word(id, foreighForm, translated, tags, example, createAt, comment);
             NewWord.AddWord();
+            MainWindow.Words.Add(NewWord);
             MessageBox.Show("Действие выполнено");
             this.Close();
+
         }
     }
 }

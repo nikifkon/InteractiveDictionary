@@ -11,16 +11,25 @@ namespace InteractiveDictionary
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow :IWordRepository
+    public partial class MainWindow 
     {
         public Word SelectedWord = new Word(11, "Test", "Тест", new List<Tag> {new Tag("tag1"), new Tag("tag2")}, "We don't need tests", DateTime.Now, "no comments");
-        public List<Word> Words = new() { };
-        
+        public ObservableCollection<Word> Words = new()
+        {
+            new Word(11, "Test", "Тест", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
+            new Word(12, "Test2", "Тест2", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
+            new Word(13, "Test3", "Тест3", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
+            new Word(14, "Test4", "Тест4", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
+            new Word(15, "Test5", "Тест5", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
+            new Word(16, "Test6", "Тест6", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
+        };
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = SelectedWord;
-            Deck.ItemsSource = GetWords();
+            Words = new ObservableCollection<Word>(GetWords());
+            Deck.ItemsSource = Words;
 
         }
 
@@ -32,7 +41,7 @@ namespace InteractiveDictionary
 
         public List<Word> GetWords()
         {
-            List<Word> wordList = new List<Word>();
+            var words = new List<Word>();
             var lines = File.ReadAllLines(@"a.txt");
             foreach (var line in lines)
             {
@@ -45,18 +54,20 @@ namespace InteractiveDictionary
                 foreach (var item in stringList)
                     tags.Add(new Tag(item));
                 var example = parts[4].Split(':')[1];
-                var date = parts[5].Substring(parts[5].IndexOf(':')).Split(' ')[0].Split('.');
-                var time = parts[5].Substring(parts[5].IndexOf(':')).Split(' ')[1].Split(':');
-                var createAt = new DateTime(int.Parse(date[0]), int.Parse(date[1]), int.Parse(date[2]), int.Parse(time[0]), int.Parse(time[1]), int.Parse(time[2]));
+                var test = parts[5].Substring(parts[5].IndexOf(':') + 1);
+                var test1 = parts[5].Substring(parts[5].IndexOf(':') + 1).Split(' ')[1];
+                var date = parts[5].Substring(parts[5].IndexOf(':') + 1).Split(' ')[0].Split('.');
+                var time = parts[5].Substring(parts[5].IndexOf(':') + 1).Split(' ')[1].Split(':');
+                var createAt = new DateTime(int.Parse(date[2]), int.Parse(date[1]), int.Parse(date[0]), int.Parse(time[0]), int.Parse(time[1]), int.Parse(time[2]));
                 var comment = parts[6].Split(':')[1];
-                wordList.Add(new Word(id, foreighForm, translated, tags, example, createAt, comment));
+                words.Add(new Word(id, foreighForm, translated, tags, example, createAt, comment));
             }
-            return wordList;
+            return words;
         }
 
         private void AddWord(object sender, RoutedEventArgs e)
         {
-            var window = new WindowForAddWord();
+            var window = new WindowForAddWord(this);
             window.Show();
         }
 

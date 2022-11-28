@@ -37,16 +37,16 @@ namespace InteractiveDictionary.domain
         public override string ToString()
         {
             var result = "";
-            result += string.Format("Id: {0}; ", Id);
-            result += string.Format("ForeignForm: {0} ", ForeignForm);
-            result += string.Format("Translated: {0}; ", Translated);
+            result += string.Format("Id:{0};", Id);
+            result += string.Format("ForeignForm:{0};", ForeignForm);
+            result += string.Format("Translated:{0};", Translated);
             var tags = "";
             foreach (var tag in Tags)
-                tags += tag.Name + ", ";
-            result += string.Format("Tags: {0}; ", tags.Substring(0,tags.Length-2));
-            result += string.Format("Example: {0}; ", Example);
-            result += string.Format("CreateAt: {0}; ", CreateAt);
-            result += string.Format("Comment: {0}", Comment);
+                tags += tag.Name + ",";
+            result += string.Format("Tags:{0};", tags.Substring(0,tags.Length-1));
+            result += string.Format("Example:{0};", Example);
+            result += string.Format("CreateAt:{0};", CreateAt);
+            result += string.Format("Comment:{0}", Comment);
             return result;
         }
     }
