@@ -36,7 +36,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="{Binding ForeignForm}" />
             <TextBlock Grid.Row="1" Text="{Binding Translated}"/>
-            <TextBlock Grid.Row="2" Text="{Binding Tags}"/>
+            <TextBlock x:Name="TagsList" Grid.Row="2"/>
             <TextBlock Grid.Row="3" Text="{Binding Example}"/>
             <TextBlock Grid.Row="4" Text="{Binding Comment}"/>
             <TextBlock Grid.Row="5" Text="{Binding CreatedAt}"/>

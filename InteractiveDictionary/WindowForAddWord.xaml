@@ -30,7 +30,7 @@
                 <RowDefinition MaxHeight="30px"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="TextBoxForForeignForm"  Grid.Row="0" Text="Enter ForeignForm" />
+            <TextBox x:Name="TextBoxForForeignForm"  Grid.Row="0" Text="Enter Foreign Form" />
             <TextBox x:Name="TextBoxForTranslated" Grid.Row="1" Text="Enter Translated"/>
             <TextBox x:Name="TextBoxForTags" Grid.Row="2" Text="Enter Tags separated by SPACE"/>
             <TextBox x:Name="TextBoxForExample" Grid.Row="3" Text="Enter Example"/>

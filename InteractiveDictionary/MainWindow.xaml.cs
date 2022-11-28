@@ -13,30 +13,30 @@ namespace InteractiveDictionary
     /// </summary>
     public partial class MainWindow 
     {
-        public Word SelectedWord = new Word(11, "Test", "Тест", new List<Tag> {new Tag("tag1"), new Tag("tag2")}, "We don't need tests", DateTime.Now, "no comments");
-        public ObservableCollection<Word> Words = new()
-        {
-            new Word(11, "Test", "Тест", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
-            new Word(12, "Test2", "Тест2", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
-            new Word(13, "Test3", "Тест3", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
-            new Word(14, "Test4", "Тест4", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
-            new Word(15, "Test5", "Тест5", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
-            new Word(16, "Test6", "Тест6", new List<Tag> { new("tag1"), new("tag2") }, "We don't need tests", DateTime.Now, "no comments"),
-        };
+        public Word SelectedWord;
+        public ObservableCollection<Word> Words;
 
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = SelectedWord;
             Words = new ObservableCollection<Word>(GetWords());
             Deck.ItemsSource = Words;
-
+            SelectedWord = Words[0];
+            var tags = "";
+            foreach (var tag in SelectedWord.Tags)
+                tags += tag.Name + ", ";
+            TagsList.Text = tags;
+            DataContext = SelectedWord;
         }
 
         private void deck_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedWord = (Word)Deck.SelectedItem;
             DataContext = SelectedWord; // ?!?!??!?!?!?
+            var tags = "";
+            foreach (var tag in SelectedWord.Tags)
+                tags += tag.Name + ", ";
+            TagsList.Text = tags;
         }
 
         public List<Word> GetWords()

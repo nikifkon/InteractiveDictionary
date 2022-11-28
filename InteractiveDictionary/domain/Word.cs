@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace InteractiveDictionary.domain
 {
@@ -31,7 +33,7 @@ namespace InteractiveDictionary.domain
             //{
             //    streamWriter.Write(word.Tos);
             //}
-            File.AppendAllText(@"a.txt", this.ToString()+"\n");
+            File.AppendAllText(@"a.txt", this.ToString() + "\n");
         }
 
         public override string ToString()
@@ -43,7 +45,7 @@ namespace InteractiveDictionary.domain
             var tags = "";
             foreach (var tag in Tags)
                 tags += tag.Name + ",";
-            result += string.Format("Tags:{0};", tags.Substring(0,tags.Length-1));
+            result += string.Format("Tags: {0}; ", tags.Substring(0, tags.Length - 1));
             result += string.Format("Example:{0};", Example);
             result += string.Format("CreateAt:{0};", CreateAt);
             result += string.Format("Comment:{0}", Comment);
