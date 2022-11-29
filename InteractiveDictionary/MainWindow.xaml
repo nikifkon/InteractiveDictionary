@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InteractiveDictionary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="800" Width="1200">
     <DockPanel LastChildFill="True">
-        <Button DockPanel.Dock="Top" Background="AliceBlue" Content="Верхняя кнопка" />
         <Grid DockPanel.Dock="Left" Background="Aquamarine" MinWidth="200px">
             <Grid.RowDefinitions>
                 <RowDefinition MaxHeight="30px"/>
@@ -23,7 +22,7 @@
             <Button x:Name="ButtonAddWord" Grid.Row="2" Content="Добавить слово" IsDefault="True" Click="AddWord" />
             <Button Grid.Row="3" Content="Выбрать по тегу" />
             <Button Grid.Row="4" Content="Сортировать" />
-            <Button Grid.Row="6" Content="Случайное упражнение" />
+            <Button Grid.Row="6" Content="Случайное упражнение"  Click="StartStudySession" />
         </Grid>
         <Grid DockPanel.Dock="Right" MinWidth="300px">
             <Grid.RowDefinitions>
@@ -46,6 +45,7 @@
                 <DataTemplate>
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <TextBlock FontSize="16" Text="{Binding Path=ForeignForm}" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="16" Text=" - " HorizontalAlignment="Center" />
                         <TextBlock FontSize="16" Text="{Binding Path=Translated}" HorizontalAlignment="Center" />
                     </StackPanel>
                 </DataTemplate>

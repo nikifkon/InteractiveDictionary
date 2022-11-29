@@ -51,6 +51,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="domain\ExerciseGenerators\DefinitionExerciseGenerator.cs" />
+    <Compile Include="domain\ExerciseGenerators\IExerciseGenerator.cs" />
+    <Compile Include="domain\ExerciseGenerators\SimpleExerciseGenerator.cs" />
+    <Compile Include="domain\TextBasedWordRepository.cs" />
+    <Compile Include="StudySessionWindow.xaml.cs">
+      <DependentUpon>StudySessionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowForAddWord.xaml.cs">
       <DependentUpon>WindowForAddWord.xaml</DependentUpon>
     </Compile>
@@ -64,7 +71,6 @@
     </Compile>
     <Compile Include="domain\Exercise.cs" />
     <Compile Include="domain\ExerciseWithOptions.cs" />
-    <Compile Include="domain\IExerciseGenerator.cs" />
     <Compile Include="domain\IWordRepository.cs" />
     <Compile Include="domain\Tag.cs" />
     <Compile Include="domain\Word.cs" />
@@ -72,6 +78,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="StudySessionWindow.xaml" />
     <Page Include="WindowForAddWord.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

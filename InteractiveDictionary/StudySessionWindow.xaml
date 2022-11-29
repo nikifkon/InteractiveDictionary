@@ -1,0 +1,50 @@
+﻿<Window x:Class="InteractiveDictionary.StudySessionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:InteractiveDictionary"
+        mc:Ignorable="d"
+        Name="this"
+        Title="StudySessionWindow" Height="Auto" Width="600">
+    <Grid Margin="0 10 0 10">
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="70px"/>
+            <RowDefinition MinHeight="30px"/>
+            <RowDefinition MinHeight="30px"/>
+            <RowDefinition MaxHeight="30px"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="Упражнений: {0}/{1}">
+                    <Binding ElementName="this" Path="CurrentExerciseNumber"/>
+                    <Binding ElementName="this" Path="Exercises.Count"/>
+                </MultiBinding>
+            </TextBlock.Text>
+            <TextBlock.TextAlignment>Center</TextBlock.TextAlignment>
+            <TextBlock.FontSize>16</TextBlock.FontSize>
+        </TextBlock>
+        <TextBlock Grid.Row="1"
+            Text="{Binding ElementName=this,Path=CurrentExercise.Question}"
+            Height="Auto"
+            FontSize="20"
+            TextAlignment="Center"
+        />
+        <TextBlock Grid.Row="2"
+            Text="{Binding ElementName=this,Path=CurrentExercise.Answer}"
+            FontSize="20"
+            TextAlignment="Center"
+            Height="Auto">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=this,Path=IsShowingAnswer}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <Button Grid.Row="3" Click="Next" Width="200px">Дальше!</Button>
+    </Grid>
+</Window>

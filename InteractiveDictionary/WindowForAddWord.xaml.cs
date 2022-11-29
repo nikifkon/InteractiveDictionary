@@ -13,11 +13,14 @@ namespace InteractiveDictionary
     public partial class WindowForAddWord : Window
     {
         public Word NewWord;
-        public MainWindow MainWindow;
-        public WindowForAddWord(MainWindow mainWindow)
+        public IWordRepository Repository;
+        public Action<Word> InsertWordCallback;
+        
+        public WindowForAddWord(IWordRepository repository, Action<Word> insertWordCallback)
         {
             InitializeComponent();
-            MainWindow=mainWindow;
+            Repository = repository;
+            InsertWordCallback = insertWordCallback;
         }
 
         private void deck_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -40,11 +43,10 @@ namespace InteractiveDictionary
             var createAt = DateTime.Now;
             var comment = TextBoxForComment.Text;
             NewWord = new Word(id, foreighForm, translated, tags, example, createAt, comment);
-            NewWord.AddWord();
-            MainWindow.Words.Add(NewWord);
+            Repository.AddWord(NewWord);
+            InsertWordCallback(NewWord);
             MessageBox.Show("Действие выполнено");
             this.Close();
-
         }
     }
 }
