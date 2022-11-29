@@ -6,35 +6,48 @@
         xmlns:local="clr-namespace:InteractiveDictionary"
         mc:Ignorable="d"
         Title="WindowForAddWord" Height="350" Width="525">
-    <DockPanel LastChildFill="True">
-        <Button DockPanel.Dock="Top" Background="AliceBlue" Content="Верхняя кнопка" />
-        <Grid DockPanel.Dock="Left" Background="Aquamarine" MinWidth="200px">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" MinWidth="300px" Margin="4">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Margin" Value="0,0,0,4" />
+                </Style>
+            </Grid.Resources>
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition MaxHeight="30px" Height="2*" />
+                <RowDefinition MaxHeight="30px" Height="2*" />
+                <RowDefinition MaxHeight="30px" Height="2*" />
+                <RowDefinition MaxHeight="30px" Height="2*" />
+                <RowDefinition MaxHeight="30px" />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <Button x:Name="ButtonAdd" Grid.Row="0" Content="Add" IsDefault="True" Click="AddWord"/>
-            <Button x:Name="ButtonCancel" Grid.Row="1" Content="Cancel" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="200px" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0">Слово</TextBlock>
+            <TextBox x:Name="TextBoxForForeignForm" Grid.Row="0" Grid.Column="1" Text="" />
+            
+            <TextBlock Grid.Row="1" Grid.Column="0">Перевод</TextBlock>
+            <TextBox x:Name="TextBoxForTranslated" Grid.Row="1" Grid.Column="1" Text="" />
+            
+            <TextBlock Grid.Row="2" Grid.Column="0">Теги (разделнные пробелом)</TextBlock>
+            <TextBox x:Name="TextBoxForTags" Grid.Row="2" Grid.Column="1" Text="" />
+            
+            <TextBlock Grid.Row="3" Grid.Column="0">Пример</TextBlock>
+            <TextBox x:Name="TextBoxForExample" Grid.Row="3" Grid.Column="1" Text="" />
+            
+            <TextBlock Grid.Row="4" Grid.Column="0">Комментарий</TextBlock>
+            <TextBox x:Name="TextBoxForComment" Grid.Row="4" Grid.Column="1" Text="" Grid.RowSpan="2" />
         </Grid>
-        <Grid DockPanel.Dock="Right" MinWidth="300px">
-            <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="30px" Height="2*"/>
-                <RowDefinition MaxHeight="30px" Height="2*"/>
-                <RowDefinition MaxHeight="30px" Height="2*"/>
-                <RowDefinition MaxHeight="30px" Height="2*"/>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBox x:Name="TextBoxForForeignForm"  Grid.Row="0" Text="Enter Foreign Form" />
-            <TextBox x:Name="TextBoxForTranslated" Grid.Row="1" Text="Enter Translated"/>
-            <TextBox x:Name="TextBoxForTags" Grid.Row="2" Text="Enter Tags separated by SPACE"/>
-            <TextBox x:Name="TextBoxForExample" Grid.Row="3" Text="Enter Example"/>
-            <TextBox x:Name="TextBoxForComment" Grid.Row="4" Text="Enter Comment" Grid.RowSpan="2"/>
-        </Grid>
+        <StackPanel DockPanel.Dock="Bottom" MaxWidth="100px" Height="70px">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="0,10,0,0"/>
+                </Style>
+            </StackPanel.Resources> 
+            <Button x:Name="ButtonAdd" Content="Add" IsDefault="True" Click="AddWord" />
+            <Button x:Name="ButtonCancel" Content="Cancel" />
+        </StackPanel>
     </DockPanel>
 </Window>
