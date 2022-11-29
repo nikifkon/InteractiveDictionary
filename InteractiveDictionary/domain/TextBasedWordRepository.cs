@@ -10,6 +10,8 @@ namespace InteractiveDictionary.domain
         public TextBasedWordRepository(string filepath)
         {
             Filepath = filepath;
+            if (!File.Exists(Filepath))
+                File.Create(Filepath);
         }
         
         public List<Word> GetWords()
