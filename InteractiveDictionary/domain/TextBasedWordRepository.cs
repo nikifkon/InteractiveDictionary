@@ -6,21 +6,31 @@ namespace InteractiveDictionary.domain
 {
     public class TextBasedWordRepository : IWordRepository
     {
-        public readonly string Filepath;
+        public readonly string AbsolutePath;
+        public readonly static string AppDataFolder;
+
+        static TextBasedWordRepository()
+        {
+            AppDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "InteractiveDictionary");
+            if (!Directory.Exists(AppDataFolder))
+            {
+                Directory.CreateDirectory(AppDataFolder);
+            }
+        }
 
         public TextBasedWordRepository(string filepath)
         {
-            Filepath = filepath;
-            if (!File.Exists(Filepath))
+            AbsolutePath = Path.Combine(AppDataFolder, filepath);
+            if (!File.Exists(AbsolutePath))
             {
-                using var file = File.Create(Filepath);
+                using var file = File.Create(AbsolutePath);
             }
         }
 
         public List<Word> GetWords()
         {
             var words = new List<Word>();
-            var lines = File.ReadAllLines(Filepath);
+            var lines = File.ReadAllLines(AbsolutePath);
             foreach (var line in lines)
             {
                 var parts = line.Split(';');
@@ -55,7 +65,7 @@ namespace InteractiveDictionary.domain
             //{
             //    streamWriter.Write(word.Tos);
             //}
-            File.AppendAllText(Filepath, WordToString(word) + "\n");
+            File.AppendAllText(AbsolutePath, WordToString(word) + "\n");
         }
 
         public void DeleteWord(int id)
