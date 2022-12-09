@@ -7,13 +7,16 @@ namespace InteractiveDictionary.domain
     public class TextBasedWordRepository : IWordRepository
     {
         public readonly string Filepath;
+
         public TextBasedWordRepository(string filepath)
         {
             Filepath = filepath;
             if (!File.Exists(Filepath))
-                File.Create(Filepath);
+            {
+                using var file = File.Create(Filepath);
+            }
         }
-        
+
         public List<Word> GetWords()
         {
             var words = new List<Word>();
@@ -46,7 +49,6 @@ namespace InteractiveDictionary.domain
         {
             throw new System.NotImplementedException();
         }
-        
         public void AddWord(Word word)
         {
             //foreach (var property in word.GetType().GetProperties())
