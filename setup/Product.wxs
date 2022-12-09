@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="InteractiveDictionary" Language="1033" Version="1.0.0.0" Manufacturer="test" UpgradeCode="56e4f210-a36e-4bb8-b34f-ae35317fcb1e">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+
+		<Feature Id="ProductFeature" Title="setup" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentRef Id="ApplicationShortcut" />
+			<ComponentRef Id="ApplicationShortcutDesktop"/>
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="!(bind.property.ProductName)" />
+			</Directory>
+			<Directory Id="ProgramMenuFolder"/>
+			<Directory Id="DesktopFolder"/>
+		</Directory>
+		
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="File_$(var.InteractiveDictionary.TargetFileName)">
+				<File Id="$(var.InteractiveDictionary.TargetFileName)" KeyPath="yes" Source="$(var.InteractiveDictionary.TargetPath)" Checksum="yes">
+				</File>
+			</Component>
+		</ComponentGroup>
+		
+		<Component Id="ApplicationShortcut" Directory="ProgramMenuFolder" Guid="ab838178-9fdd-46d2-843b-38f8846fc04a">
+			<Shortcut
+				Id="ApplicationStartMenuShortcut"
+			    Name="!(bind.property.ProductName)"
+				Target="[#$(var.InteractiveDictionary.TargetFileName)]"
+				WorkingDirectory="INSTALLFOLDER"/>
+			<RegistryValue
+				Root="HKCU" Key="Software\!(bind.property.ProductName)"
+				Name="ApplicationShortcutsInstalled" Type="integer" Value="1" KeyPath="yes"/>
+		</Component>
+		<Component Id="ApplicationShortcutDesktop" Directory="DesktopFolder" Guid="9ec48d3b-b6d4-4f07-a578-6a64045b9a2a">
+			<Shortcut
+					Id="ApplicationDesktopShortcut"
+					Name="!(bind.property.ProductName)"
+					Target="[#$(var.InteractiveDictionary.TargetFileName)]"
+					WorkingDirectory="INSTALLFOLDER"/>
+			<RegistryValue
+					Root="HKCU" Key="Software\!(bind.property.ProductName)"
+					Name="ApplicationShortcutDesktopInstalled" Type="integer" Value="1" KeyPath="yes"/>
+		</Component>
+	</Fragment>
+</Wix>
