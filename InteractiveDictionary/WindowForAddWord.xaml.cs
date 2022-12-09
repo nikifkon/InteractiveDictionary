@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using InteractiveDictionary.domain;
 using System.IO;
+using System.Linq;
 
 namespace InteractiveDictionary
 {
@@ -29,10 +30,10 @@ namespace InteractiveDictionary
 
         private void AddWord(object sender, RoutedEventArgs e)
         {
-            var count = 0;
-            if (File.Exists(@"a.txt"))
-                count = File.ReadAllLines(@"a.txt").Length;
-            var id = count + 1;
+            var id = 1;
+            var words = Repository.GetWords();
+            if (words.Count > 0)
+                id = words.Max(w => w.Id) + 1;
             var foreighForm = TextBoxForForeignForm.Text;
             var translated = TextBoxForTranslated.Text;
             var tags = new List<Tag>();

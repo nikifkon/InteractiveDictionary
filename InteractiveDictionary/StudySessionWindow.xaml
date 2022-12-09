@@ -26,6 +26,8 @@
         </TextBlock>
         <TextBlock Grid.Row="1"
             Text="{Binding ElementName=this,Path=CurrentExercise.Question}"
+            MaxWidth="500px"
+            TextWrapping="Wrap"
             Height="Auto"
             FontSize="20"
             TextAlignment="Center"

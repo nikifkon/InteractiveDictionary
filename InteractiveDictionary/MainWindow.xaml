@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InteractiveDictionary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200">
+        Title="MainWindow" Height="600" Width="1200">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Left" Background="Aquamarine" MinWidth="200px">
             <Grid.RowDefinitions>

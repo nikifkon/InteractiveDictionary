@@ -56,6 +56,11 @@ namespace InteractiveDictionary.domain
             File.AppendAllText(Filepath, WordToString(word) + "\n");
         }
 
+        public void DeleteWord(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         private string WordToString(Word word)
         {
             var result = "";
