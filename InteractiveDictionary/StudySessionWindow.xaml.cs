@@ -44,24 +44,15 @@ namespace InteractiveDictionary
         public static readonly DependencyProperty IsShowingAnswerProperty =
             DependencyProperty.Register("IsShowingAnswer", typeof(bool), typeof(StudySessionWindow));
 
-        public StudySessionWindow(IWordRepository repository)
+        public StudySessionWindow(IEnumerable<Word> words)
         {
-            Dispatcher.BeginInvoke(new Action<IWordRepository>(GetExercise), repository);
             InitializeComponent();
+            GetExercise(words);
         }
 
-        private void GetExercise(IWordRepository repository)
+        private void GetExercise(IEnumerable<Word> words)
         {
-            var generators = new List<IExerciseGenerator>()
-            {
-                new SimpleExerciseGenerator(),
-                new DefinitionExerciseGenerator()
-            };
-            var random = new Random();
-            Exercises = repository.GetWords()
-                .Select(word => generators[random.Next() % generators.Count].Generate(word))
-                .Where(exercise => exercise is not null)
-                .ToList();
+            Exercises = words.Select(word => word.GetRandomExercise()).ToList();
             CurrentExerciseNumber = 1;
             CurrentExercise = Exercises[CurrentExerciseNumber - 1];
             IsShowingAnswer = false;

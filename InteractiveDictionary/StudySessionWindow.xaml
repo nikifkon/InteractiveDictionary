@@ -10,8 +10,7 @@
     <Grid Margin="0 10 0 10">
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="70px"/>
-            <RowDefinition MinHeight="30px"/>
-            <RowDefinition MinHeight="30px"/>
+            <RowDefinition Height="*"/>
             <RowDefinition MaxHeight="30px"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0">
@@ -24,29 +23,65 @@
             <TextBlock.TextAlignment>Center</TextBlock.TextAlignment>
             <TextBlock.FontSize>16</TextBlock.FontSize>
         </TextBlock>
-        <TextBlock Grid.Row="1"
-            Text="{Binding ElementName=this,Path=CurrentExercise.Question}"
-            MaxWidth="500px"
-            TextWrapping="Wrap"
-            Height="Auto"
-            FontSize="20"
-            TextAlignment="Center"
-        />
-        <TextBlock Grid.Row="2"
-            Text="{Binding ElementName=this,Path=CurrentExercise.Answer}"
-            FontSize="20"
-            TextAlignment="Center"
-            Height="Auto">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=this,Path=IsShowingAnswer}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
+        <Grid Grid.Row="1" Margin="10px">
+            <Grid.Resources >
+                <Style TargetType="TextBlock" >
+                    <Setter Property="Padding" Value="0,5,0,10" />
                 </Style>
-            </TextBlock.Style>
-        </TextBlock>
-        <Button Grid.Row="3" Click="Next" Width="200px">Дальше!</Button>
-    </Grid>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100px" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+                Grid.Row="0"
+                VerticalAlignment="Center"
+                >Что делать?:</TextBlock>
+            <TextBlock
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                >Вопрос:</TextBlock>
+            <TextBlock
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                >Ответ:</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1"
+                Text="{Binding ElementName=this,Path=CurrentExercise.TaskDescription}"
+                MaxWidth="500px"
+                TextWrapping="Wrap"
+                VerticalAlignment="Center"
+                Height="Auto"
+                FontSize="20"
+                />
+            <TextBlock Grid.Row="1" Grid.Column="1"
+                Text="{Binding ElementName=this,Path=CurrentExercise.Question}"
+                MaxWidth="500px"
+                TextWrapping="Wrap"
+                VerticalAlignment="Center"
+                Height="Auto"
+                FontSize="20"
+            />
+            <TextBlock Grid.Row="2" Grid.Column="1"
+                Text="{Binding ElementName=this,Path=CurrentExercise.Answer}"
+                FontSize="20"
+                VerticalAlignment="Center"
+                Height="Auto">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=this,Path=IsShowingAnswer}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+        <Button Grid.Row="4" Click="Next" Width="200px">Дальше!</Button>
+        </Grid>
 </Window>

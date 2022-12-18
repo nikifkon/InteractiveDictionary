@@ -2,9 +2,10 @@
 
 namespace InteractiveDictionary.domain
 {
-    public record Tag(string Name)
+    public class Tag
     {
-        public string Name { get; } = Name;
+        public int Id { get; set; }
+        public string Name { get; set; }
 
     }
 }

@@ -24,7 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\InteractiveDictionary\InteractiveDictionary.csproj">
       <Name>InteractiveDictionary</Name>
-      <Project>{6fd94901-6c59-4486-a50d-aaba9492f93a}</Project>
+      <Project>{1d4ea1c9-18b7-42b5-b201-5744cd0a5545}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>

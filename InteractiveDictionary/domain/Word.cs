@@ -4,27 +4,34 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
+
 namespace InteractiveDictionary.domain
 {
     public class Word
     {
-        public Word(int id, string foreignForm, string translated, List<Tag> tags, string example, DateTime createAt, string comment)
+        public static Random Random = new Random();
+        public int Id { get; set; }
+        public string ForeignForm { get; set; }
+        public string Translated { get; set; }
+        public string? Definition { get; set; }
+        public List<Tag> Tags { get; set; }
+
+        public Word()
         {
-            Id = id;
-            ForeignForm = foreignForm;
-            Translated = translated;
-            Tags = tags;
-            Example = example;
-            CreateAt = createAt;
-            Comment = comment;
+            Tags = new List<Tag>();
         }
 
-        public int Id { get; }
-        public string ForeignForm { get; }
-        public string Translated { get; }
-        public List<Tag> Tags { get; }
-        public string Example { get; }
-        public DateTime CreateAt { get; }
-        public string Comment { get; }
+        public Exercise GetRandomExercise()
+        {
+            if (Definition != null && Random.NextDouble() > 0.4)
+            {
+                return new Exercise(Definition, ForeignForm, "Какое слово соответствует определению?");
+            }
+            if (Random.NextDouble() > 0.5)
+            {
+                return new Exercise(ForeignForm, Translated, "Как переводится слово?");
+            }
+            return new Exercise(Translated, ForeignForm, "Как на немецком будет?");
+        }
     }
 }

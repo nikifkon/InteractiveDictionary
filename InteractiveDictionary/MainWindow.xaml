@@ -7,9 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1200">
     <DockPanel LastChildFill="True">
-        <Grid DockPanel.Dock="Left" Background="Aquamarine" MinWidth="200px">
+        <Grid DockPanel.Dock="Left" Background="Aquamarine" Width="200px">
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="30px"/>
                 <RowDefinition MaxHeight="30px"/>
                 <RowDefinition MaxHeight="30px"/>
                 <RowDefinition MaxHeight="30px"/>
@@ -17,29 +16,40 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition MaxHeight="30px"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" />
-            <Button Grid.Row="1" Content="Search"/>
-            <Button x:Name="ButtonAddWord" Grid.Row="2" Content="Добавить слово" IsDefault="True" Click="AddWord" />
-            <Button Grid.Row="3" Content="Выбрать по тегу" />
-            <Button Grid.Row="4" Content="Сортировать" />
-            <Button Grid.Row="6" Content="Случайное упражнение"  Click="StartStudySession" />
+            <TextBox
+                Grid.Row="0"
+                FontSize="14"
+                TextAlignment="Center"
+                VerticalContentAlignment="Center"
+                TextWrapping="Wrap"
+                x:Name="SearchTextBox"
+                TextChanged="SearchTextBox_TextChanged"
+                KeyDown="SearchTextBox_OnKeyDown">
+            </TextBox>
+            <Button Grid.Row="1" Content="Поиск" Click="Search"/>
+            <Button Grid.Row="2" Content="Добавить слово" Click="AddWord" />
+            <Button Grid.Row="5" Content="Случайное упражнение"  Click="StartStudySession" />
         </Grid>
-        <Grid DockPanel.Dock="Right" MinWidth="300px">
+        
+        <Grid DockPanel.Dock="Right" MinWidth="250px">
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition MaxHeight="30px"/>
-                <RowDefinition MaxHeight="30px"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30px"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{Binding ForeignForm}" />
-            <TextBlock Grid.Row="1" Text="{Binding Translated}"/>
-            <TextBlock x:Name="TagsList" Grid.Row="2"/>
-            <TextBlock Grid.Row="3" Text="{Binding Example}"/>
-            <TextBlock Grid.Row="4" Text="{Binding Comment}"/>
-            <TextBlock Grid.Row="5" Text="{Binding CreatedAt}"/>
+
+            <Button Grid.Row="2" Click="DeleteWord" Content="Удалить слово">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding }" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
+        
         <ListBox x:Name="Deck" SelectionChanged="deck_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
