@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InteractiveDictionary
 {
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
         public Word? SelectedWord;
+        public ListSortDirection listSortDirection = ListSortDirection.Ascending;
         public ObservableCollection<Word> Words;
         public ApplicationContext db = new ApplicationContext();
         public ICollectionView WordsView { get; set; }
@@ -33,8 +33,8 @@ namespace InteractiveDictionary
             Words = db.Words.Local.ToObservableCollection();
             WordsView = CollectionViewSource.GetDefaultView(Words);
             WordsView.Filter += o => Filter(o as Word);
+            WordsView.SortDescriptions.Add(new SortDescription("ForeignForm", listSortDirection));
             Deck.ItemsSource = WordsView;
-
         }
 
 
@@ -60,7 +60,13 @@ namespace InteractiveDictionary
 
         private void StartStudySession(object sender, RoutedEventArgs e)
         {
-            var dialog = new StudySessionWindow(WordsView.Cast<Word>());
+            var words = WordsView.Cast<Word>().ToList();
+            if (words.Count == 0)
+            {
+                MessageBox.Show("No words to study");
+                return;
+            }
+            var dialog = new StudySessionWindow(words);
             dialog.ShowDialog();
         }
 
@@ -89,6 +95,16 @@ namespace InteractiveDictionary
             {
                 WordsView.Refresh();
             }
+        }
+
+        private void SortWords(object sender, RoutedEventArgs e)
+        {
+            listSortDirection = listSortDirection == ListSortDirection.Ascending
+                ? ListSortDirection.Descending
+                : ListSortDirection.Ascending;
+            
+            WordsView.SortDescriptions.Clear();
+            WordsView.SortDescriptions.Add(new SortDescription("ForeignForm", listSortDirection));
         }
     }
 }

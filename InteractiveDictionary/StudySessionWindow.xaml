@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:InteractiveDictionary"
         mc:Ignorable="d"
         Name="this"
-        Title="StudySessionWindow" Height="Auto" Width="600">
+        Title="Учебная сессия" Height="Auto" Width="600">
     <Grid Margin="0 10 0 10">
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="70px"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InteractiveDictionary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200">
+        Title="InteractiveDictionary" Height="600" Width="1200">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Left" Background="Aquamarine" Width="200px">
             <Grid.RowDefinitions>
@@ -28,6 +28,7 @@
             </TextBox>
             <Button Grid.Row="1" Content="Поиск" Click="Search"/>
             <Button Grid.Row="2" Content="Добавить слово" Click="AddWord" />
+            <Button Grid.Row="3" Content="Сортировать" Click="SortWords" />
             <Button Grid.Row="5" Content="Случайное упражнение"  Click="StartStudySession" />
         </Grid>
         

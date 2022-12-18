@@ -15,7 +15,7 @@ namespace InteractiveDictionary
         private int c = 0;
         private readonly ILanguageDictionary _dictionary;
         private readonly ObservableCollection<string> _definitionList = new();
-        private ApplicationContext db;
+        private readonly ApplicationContext db;
         private string? SelectedDefinision;
 
         public AddWordForm(ApplicationContext db)
@@ -55,7 +55,12 @@ namespace InteractiveDictionary
 
                 }));
                 var translation = _dictionary.TranslateToRussian(foreignWord);
-                var result3 = Dispatcher.BeginInvoke(new Action(() => TranslatedWordTextBox.Text = translation));
+                var result3 = Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    if (translation == "")
+                        return;
+                    TranslatedWordTextBox.Text = translation;
+                }));
                 
                 prevHandled = c;
             }
@@ -74,8 +79,20 @@ namespace InteractiveDictionary
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
             var word = new Word();
+            if (ForeignWordTextBox.Text == "")
+            {
+                MessageBox.Show("Введите слово");
+                return;
+            }
             word.ForeignForm = ForeignWordTextBox.Text;
+            
+            if (TranslatedWordTextBox.Text == "")
+            {
+                MessageBox.Show("Введите перевод");
+                return;
+            }
             word.Translated = TranslatedWordTextBox.Text;
+
             word.Definition = SelectedDefinision;
             db.Words.Add(word);
             db.SaveChanges();

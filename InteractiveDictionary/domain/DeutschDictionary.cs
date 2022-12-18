@@ -27,7 +27,7 @@ namespace InteractiveDictionary.domain
         public string TranslateToRussian(string word)
         {
             var url = "https://dictionary.yandex.net/api/v1/dicservice/lookup?";
-            // free key. You can get your own key here: https://tech.yandex.com/dictionary/ or use my
+            // free key. You can get your own key here: https://tech.yandex.com/dictionary/ or use mine
             var yandexKey = "dict.1.1.20221209T124847Z.00bf4f5b08f53dc6.b6eb82405f9b69ccfedd80afb1b8de86aa106be9";
             url += $"key={yandexKey}";
             url += "&lang=de-ru";

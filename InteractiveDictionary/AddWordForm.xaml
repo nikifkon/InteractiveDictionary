@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:InteractiveDictionary"
         mc:Ignorable="d"
         FocusManager.FocusedElement="{x:Reference ForeignWordTextBox}"
-        Title="AddWordForm" Height="600" MinWidth="900" Width="900">
+        Title="Форма добавления нового слова" Height="600" MinWidth="900" Width="900">
     <Grid Margin="20px">
         <Grid.RowDefinitions>
             <RowDefinition Height="40px"/>

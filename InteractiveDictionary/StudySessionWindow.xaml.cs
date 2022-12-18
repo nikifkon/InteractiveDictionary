@@ -54,7 +54,7 @@ namespace InteractiveDictionary
         {
             Exercises = words.Select(word => word.GetRandomExercise()).ToList();
             CurrentExerciseNumber = 1;
-            CurrentExercise = Exercises[CurrentExerciseNumber - 1];
+            CurrentExercise = Exercises[0];
             IsShowingAnswer = false;
         }
 
