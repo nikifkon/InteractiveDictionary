@@ -34,18 +34,31 @@ namespace InteractiveDictionary.domain
             url += $"&text={word}";
             var request = WebRequest.Create(url);
             request.Method = "Get";
-
+            WebResponse webResponse;
+            Stream webStream;
             try
             {
-                using var webResponse = request.GetResponse();
-                using var webStream = webResponse.GetResponseStream();
-                using var reader = new StreamReader(webStream);
-                var data = reader.ReadToEnd();
-                return _translationRegex.Match(data).Groups["translation"].Value;
+                webResponse = request.GetResponse();
             }
             catch
             {
-                return "";
+                return "Ошибка подключения к сети";
+            }
+            try
+            {
+                webStream = webResponse.GetResponseStream();
+                using var reader = new StreamReader(webStream);
+                var data = reader.ReadToEnd();
+                //_translationRegex.Match(data).Groups["translation"].Value
+                string text = _translationRegex.Match(data).Groups["translation"].Value;
+                if (text.Length > 0)
+                    return text;
+                else
+                    return $"Перевод {word} не найден, введите свой";
+            }
+            catch
+            {
+                return $"Перевод {word} не найден, введите свойgg";
             }
         }
 
@@ -54,11 +67,12 @@ namespace InteractiveDictionary.domain
             var url = $"https://www.openthesaurus.de/synonyme/{word}";
             var request = WebRequest.Create(url);
             request.Method = "GET";
+            WebResponse webResponse;
+            Stream webStream;
             try
             {
-                using var webResponse = request.GetResponse();
-                using var webStream = webResponse.GetResponseStream();
-
+                webResponse = request.GetResponse();
+                webStream = webResponse.GetResponseStream();
                 using var reader = new StreamReader(webStream);
                 var data = reader.ReadToEnd();
                 var defSection = _definitionSectionRegex.Match(data).Groups[1].Value;
