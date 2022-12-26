@@ -53,6 +53,16 @@
                 Width="Auto"
                 VerticalAlignment="Center"
                 />
+            <TextBlock 
+                Grid.Row="0"
+                Grid.Column="1"
+                x:Name="ErrorBlock"
+                Text=""
+                Foreground="Red"
+                FontSize="15px"
+                Width="Auto"
+                VerticalAlignment="Bottom"
+                />
             <TextBlock
                 Grid.Row="1"
                 Grid.Column="0"
