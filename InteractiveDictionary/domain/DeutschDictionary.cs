@@ -24,7 +24,7 @@ namespace InteractiveDictionary.domain
         {
         }
 
-        public string TranslateToRussian(string word)
+        public TranslationResult TranslateToRussian(string word)
         {
             var url = "https://dictionary.yandex.net/api/v1/dicservice/lookup?";
             // free key. You can get your own key here: https://tech.yandex.com/dictionary/ or use mine
@@ -42,7 +42,8 @@ namespace InteractiveDictionary.domain
             }
             catch
             {
-                return "Ошибка подключения к сети";
+
+                return new TranslationResult("",ErrorType.NetworkError, "Ошибка подключения к сети, введите свой перевод");
             }
             try
             {
@@ -52,13 +53,13 @@ namespace InteractiveDictionary.domain
                 //_translationRegex.Match(data).Groups["translation"].Value
                 string text = _translationRegex.Match(data).Groups["translation"].Value;
                 if (text.Length > 0)
-                    return text;
+                    return new TranslationResult(text);
                 else
-                    return $"Перевод {word} не найден, введите свой";
+                    return new TranslationResult("", ErrorType.TranslationNotFound, $"Перевод {word} не найден, введите свой");
             }
             catch
             {
-                return $"Перевод {word} не найден, введите свойgg";
+                return new TranslationResult("", ErrorType.TranslationNotFound, $"Перевод {word} не найден, введите свой");
             }
         }
 

@@ -29,6 +29,19 @@ namespace InteractiveDictionary
             thread.Start();
         }
 
+        public void IndicateError(TranslationResult translationResult)
+        {
+            var errorType = translationResult.ErrorType;
+            switch (errorType) {
+                case ErrorType.NetworkError:
+                    ErrorBlock.Text = translationResult.ErrorMessage;
+                    break;
+                case ErrorType.TranslationNotFound:
+                    ErrorBlock.Text = translationResult.ErrorMessage;
+                    break;
+            }
+        }
+
         private void StartForeignWordTextBoxWatcher()
         {
             int prevHandled = c;
@@ -57,9 +70,10 @@ namespace InteractiveDictionary
                 var translation = _dictionary.TranslateToRussian(foreignWord);
                 var result3 = Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    if (translation == "")
-                        return;
-                    TranslatedWordTextBox.Text = translation;
+                    if (translation.ErrorType != ErrorType.None)
+                        IndicateError(translation);
+                    else
+                        TranslatedWordTextBox.Text = translation.TranslatedText;
                 }));
                 
                 prevHandled = c;
