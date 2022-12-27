@@ -39,6 +39,9 @@ namespace InteractiveDictionary
                 case ErrorType.TranslationNotFound:
                     ErrorBlock.Text = translationResult.ErrorMessage;
                     break;
+                case ErrorType.None:
+                    ErrorBlock.Text = "";
+                    break;
             }
         }
 
@@ -70,10 +73,8 @@ namespace InteractiveDictionary
                 var translation = _dictionary.TranslateToRussian(foreignWord);
                 var result3 = Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    if (translation.ErrorType != ErrorType.None)
-                        IndicateError(translation);
-                    else
-                        TranslatedWordTextBox.Text = translation.TranslatedText;
+                    IndicateError(translation);
+                    TranslatedWordTextBox.Text = translation.TranslatedText;
                 }));
                 
                 prevHandled = c;
